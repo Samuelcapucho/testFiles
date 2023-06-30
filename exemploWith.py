@@ -1,36 +1,89 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[110]:
+# In[126]:
+
 
 
 import requests
 import base64
 import json
 import streamlit as st
+def enviarPdf(bytesFilePdf):
+
+    base64Bytes = base64.b64encode(bytesFilePdf) #encodando EM BASE 64
+    jDConvert = json.dumps(base64Bytes.decode('utf-8')) #tranformando em texto(formato json, string)
+    baseMd5 = hashlib.md5(jDConvert.encode("utf-8")).hexdigest() #md5 precisa que seja encondado em str
+    
+    headers = {'Content-type': "application/json"} 
+    data = {
+              "call":"IncluirAnexo", 
+              "app_key": "2423921576076",
+              "app_secret": "3c942267c01ee0b7c2f0bf15beca87a1",
+              "param": [ 
+                            {
+                                "nId": '',
+                                "cTabela": "conta-pagar",
+                                "cNomeArquivo": 'nf.pdf',
+                                "cArquivo": jDConvert,
+                                "cMd5": baseMd5,
+                                
+                            }
+
+
+                        ]
+            }
+
+ 
+    
+    
+    endPoint = f'https://app.omie.com.br/api/v1/geral/anexo/'  
+    r = requests.post(endPoint,headers=headers, json = data)
+    r = r.json()
+    st.write(r)
+    return
+
+
+    
+
 
 st.session_state["arquivoObject"] = st.file_uploader("Upload da Nota/RPA", type =['.pdf'])
 if st.session_state["arquivoObject"] != None:
     bytesFilePdf = st.session_state["arquivoObject"].getvalue()
+    enviarPdf(bytesFilePdf)
+    
+    
 
 
-    githubToken = "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"
-    githubAPIURL = "https://api.github.com/repos/Samuelcapucho/testFiles/contents/intermedio.zip"
-    headers = {
-                    "Authorization": f'''Bearer {githubToken}''',
-                    "Content-type": "application/vnd.github+json",
-                 }
-    r = requests.get(githubAPIURL, headers=headers)
 
-    texto = r.json()['content']
-    #print(texto) #ele está decode (ex-base64),ou seja, formato texto
-    texto = base64.b64decode(texto) #virou bytes 
-    print(texto)
-
-
-    with ZipFile(texto, 'wb') as myzip:
-        myzip.write(bytesFilePdf)
-
+# import requests
+# import base64
+# import json
+# import streamlit as st
+# 
+# st.session_state["arquivoObject"] = st.file_uploader("Upload da Nota/RPA", type =['.pdf'])
+# if st.session_state["arquivoObject"] != None:
+#     bytesFilePdf = st.session_state["arquivoObject"].getvalue()
+# 
+# 
+#     githubToken = "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"
+#     githubAPIURL = "https://api.github.com/repos/Samuelcapucho/testFiles/contents/intermedio.zip"
+#     headers = {
+#                     "Authorization": f'''Bearer {githubToken}''',
+#                     "Content-type": "application/vnd.github+json",
+#                  }
+#     r = requests.get(githubAPIURL, headers=headers)
+# 
+#     texto = r.json()['content']
+#     #print(texto) #ele está decode (ex-base64),ou seja, formato texto
+#     texto = base64.b64decode(texto) #virou bytes 
+#     print(texto)
+# 
+# 
+#     with ZipFile(texto, 'wb') as myzip:
+#         myzip.write(bytesFilePdf)
+# 
+# 
 
 # In[ ]:
 
