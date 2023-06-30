@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[127]:
+# In[135]:
 
 
 import pandas as pd
@@ -36,8 +36,8 @@ def enviarPdf(bytesFilePdf):
               "app_secret": "3c942267c01ee0b7c2f0bf15beca87a1",
               "param": [ 
                             {
-                                "nId": '',
-                                "cTabela": "conta-pagar",
+                                "nId": 5767613303,
+                                "cTabela": "cliente",
                                 "cNomeArquivo": 'nf.pdf',
                                 "cArquivo": jDConvert,
                                 "cMd5": baseMd5,
