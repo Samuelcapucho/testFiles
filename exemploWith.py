@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[102]:
+# In[103]:
 
 
 import requests
 import base64
 import json
-
+import streamlit as st
 
 st.session_state["arquivoObject"] = st.file_uploader("Upload da Nota/RPA", type =['.pdf'])
 if st.session_state["arquivoObject"] != None:
