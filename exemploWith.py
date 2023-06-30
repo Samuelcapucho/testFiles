@@ -14,7 +14,7 @@ if st.session_state["arquivoObject"] != None:
     bytesFilePdf = st.session_state["arquivoObject"].getvalue()
 
 
-    githubToken = "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"
+    githubToken = "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"
     githubAPIURL = "https://api.github.com/repos/Samuelcapucho/testFiles/contents/intermedio.zip"
     headers = {
                     "Authorization": f'''Bearer {githubToken}''',
