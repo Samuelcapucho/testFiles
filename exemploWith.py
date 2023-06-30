@@ -1,14 +1,28 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[126]:
+# In[127]:
 
 
-
+import pandas as pd
+import streamlit as st
+import time
 import requests
 import base64
 import json
-import streamlit as st
+import pandas as pd
+from unidecode import unidecode
+import gspread
+import base64
+import hashlib
+import io
+from base64 import b64decode
+from datetime import datetime, date, timedelta
+import os
+from zipfile import ZipFile
+import zipfile
+
+
 def enviarPdf(bytesFilePdf):
 
     base64Bytes = base64.b64encode(bytesFilePdf) #encodando EM BASE 64
