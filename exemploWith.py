@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[104]:
+# In[109]:
 
 
 import requests
@@ -14,7 +14,7 @@ if st.session_state["arquivoObject"] != None:
     bytesFilePdf = st.session_state["arquivoObject"].getvalue()
 
 
-    githubToken = "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"
+    githubToken = "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"
     githubAPIURL = "https://api.github.com/repos/Samuelcapucho/projPy/contents/intermedio.zip"
     headers = {
                     "Authorization": f'''Bearer {githubToken}''',
