@@ -11,11 +11,11 @@ st.session_state["arquivoObject"] = st.file_uploader("Upload da Nota/RPA", type 
 if st.session_state["arquivoObject"] != None:
     st.session_state["arquivoObject"] = st.session_state["arquivoObject"].getvalue()
 
-    with ZipFile('intermedio.zip', 'w') as myzip:
+    with ZipFile(intermedio.zip, 'w') as myzip:
         myzip.writestr('protocolo.pdf', st.session_state["arquivoObject"])
     
     
-    with ZipFile('intermedio.zip', 'r') as myzipTwo:
+    with ZipFile(intermedio.zip, 'r') as myzipTwo:
         bytesData = myzipTwo.read()
     
     st.write(bytesData)
