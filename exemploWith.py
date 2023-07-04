@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[135]:
+# In[4]:
 
 
 import pandas as pd
@@ -21,11 +21,22 @@ from datetime import datetime, date, timedelta
 import os
 from zipfile import ZipFile
 import zipfile
+from io import BytesIO
+
+
+
 
 
 def enviarPdf(bytesFilePdf):
+    
+    mem_zip = BytesIO() 
+    with zipfile.ZipFile(mem_zip, mode="w",compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr('nf.pdf', bytesFilePdf)
 
-    base64Bytes = base64.b64encode(bytesFilePdf) #encodando EM BASE 64
+    bytesFileZip = mem_zip.getvalue()
+    
+
+    base64Bytes = base64.b64encode(bytesFileZip) #encodando EM BASE 64 para conseguir passar para string UTF-8
     jDConvert = json.dumps(base64Bytes.decode('utf-8')) #tranformando em texto(formato json, string)
     baseMd5 = hashlib.md5(jDConvert.encode("utf-8")).hexdigest() #md5 precisa que seja encondado em str
     
@@ -55,6 +66,8 @@ def enviarPdf(bytesFilePdf):
     r = requests.post(endPoint,headers=headers, json = data)
     r = r.json()
     st.write(r)
+
+    
     return
 
 
